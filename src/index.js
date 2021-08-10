@@ -23,8 +23,14 @@ const toolbarColor = document.querySelector('body');
 const inputChange = document.querySelector('#theme-switch-toggle');
 inputChange.addEventListener('click', colorChange);
 
-function colorChange() {
+function colorChange() { 
+  
   const switcher = toolbarColor.classList.toggle(Theme.DARK);
-  localStorage.setItem('switch', switcher);
+   localStorage.setItem('switch', switcher);
+  // localStorage.setItem(Theme.DARK, Theme.LIGHT);
+  // if (saveTheme) {
+  //   inputChange = saveTheme.localStorage.getItem(saveTheme);
+  // }
+ 
 };
 

@@ -7,6 +7,7 @@ const Theme = {
   DARK: 'dark-theme',
 };
 
+//menu render creating
 const menuMarkup = createMenuMarkup(menu);
 function createMenuMarkup(menu) {
   // return menu.map(menuItem=>menuTemplate(menuItem)).join('');
@@ -18,19 +19,55 @@ console.log(menuRef);
 menuRef.insertAdjacentHTML('beforeend', menuMarkup);
 
 
+// button switching
 
-const toolbarColor = document.querySelector('body');
+const toolbarColor = document.body;
 const inputChange = document.querySelector('#theme-switch-toggle');
-inputChange.addEventListener('click', colorChange);
+inputChange.addEventListener('change', colorChange);
 
-function colorChange() { 
-  
-  const switcher = toolbarColor.classList.toggle(Theme.DARK);
-   localStorage.setItem('switch', switcher);
-  // localStorage.setItem(Theme.DARK, Theme.LIGHT);
-  // if (saveTheme) {
-  //   inputChange = saveTheme.localStorage.getItem(saveTheme);
-  // }
+restoreTheme();
+
+function colorChange() {
+  toolbarColor.classList.toggle('dark-theme');
+
+  switch (getCurrentTheme()) {
+    case 'dark':
+      localStorage.setItem('switch', 'light');
+      break;
+    
+    case 'light':
+      localStorage.setItem('switch', 'dark');
+      break;
+    
+    default:
+      break;
+  }
+}
+
+function restoreTheme() {
+  switch (getCurrentTheme()) {
+    case 'dark':
+      toolbarColor.classList.add('dark-theme');
+      inputChange.checked = true;
+      break;
+    
+    case 'light':
+      toolbarColor.classList.remove('dark-theme');
+      break;
+    
+    default:
+      break;
+  }
+}
+
+function getCurrentTheme() {
+  let currentThemeValue = null;
+
+  if (!localStorage.getItem('switch')){
+    currentThemeValue = localStorage.setItem('switch', 'light');
+  } else {
+    currentThemeValue = localStorage.getItem('switch');
+  }
+  return currentThemeValue;
+}
  
-};
-
